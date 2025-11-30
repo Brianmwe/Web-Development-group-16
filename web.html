@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS Only Form Validation</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, black, purple);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            background: blue(0, 0, 0, 0.6);
+            padding: 20px;
+            width: 300px;
+            margin: 100px auto;
+            border-radius: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            width: 100%;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">JavaScript Only Form Validation</h2>
+
+<form id="myForm">
+    <label>Name:</label>
+    <input type="text" id="name">
+
+    <label>Email:</label>
+    <input type="text" id="email">
+
+    <label>Password:</label>
+    <input type="password" id="password">
+
+    <button type="submit">Submit</button>
+
+    <p id="error"></p>
+</form>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Stop default submission
+
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value;
+
+    let errorMsg = "";
+
+    // Validate name
+    if (name === "") {
+        errorMsg += "Name cannot be empty.<br>";
+    }
+
+    // Validate email format using regex
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        errorMsg += "Invalid email format.<br>";
+    }
+
+    // Validate password
+    if (password.length < 6) {
+        errorMsg += "Password must be at least 6 characters.<br>";
+    }
+
+    // Show errors
+    document.getElementById("error").innerHTML = errorMsg;
+
+    // If no errors, submit form
+    if (errorMsg === "") {
+        alert("Form submitted successfully!");
+        this.submit();
+    }
+});
+</script>
+
+</body>
+</html>
